@@ -1,0 +1,214 @@
+
+
+
+
+
+
+
+
+CICLO FORMATIVO DE GRADO SUPERIOR
+
+ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS EN RED
+
+IES Fernando Aguilar Quignon
+
+Curso 2015/2016
+
+
+
+
+
+
+MEMORIA DEL PROYECTO.
+
+“CREACIÓN DE NUBE CORPORATIVA MULTIPLATAFORMA
+EN ENTORNO DISTRIBUIDO CON DATOS CIFRADOS.”
+
+ 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Índice de contenido
+ 1 ESTUDIO DEL PROBLEMA Y ANÁLISIS DEL SISTEMA.	3
+ 1.1 INTRODUCCIÓN.	3
+ 1.2 DESCRIPCIÓN DEL ENTORNO Y EL SISTEMA ACTUAL.	4
+ 1.3 OBJETIVOS.	4
+ 1.4 FUNCIONES Y REQUISITOS.	5
+ 1.5 PLANTEAMIENTO Y EVALUACIÓN DE DIVERSAS SOLUCIONES.	6
+ 1.6 JUSTIFICACIÓN DE LA SOLUCIÓN ELEGIDA.	6
+ 1.7 MODELADO DE LA SOLUCIÓN.	6
+ 1.7.1 RECURSOS HUMANOS.	6
+ 1.7.2 RECURSOS HARDWARE.	6
+ 1.7.3 RECURSOS SOFTWARE.	6
+ 1.8 PLANIFICACIÓN TEMPORAL.	7
+ 2 EJECUCIÓN DEL PROYECTO.	7
+ 3 FASE DE PRUEBAS.	7
+ 4 DOCUMENTACIÓN DEL SISTEMA.	7
+ 4.1 INTRODUCCIÓN A LA APLICACIÓN.	7
+ 4.2 MANUAL DE INSTALACIÓN.	7
+ 4.3 MANUAL DE ADMINISTRACIÓN.	7
+ 4.4 MANUAL DE USUARIO.	7
+ 5 CONCLUSIONES FINALES.	8
+ 6 BIBLIOGRAFÍA.	8
+
+
+
+ 1  ESTUDIO DEL PROBLEMA Y ANÁLISIS DEL SISTEMA.
+
+
+
+ 1.1  INTRODUCCIÓN.
+
+Descripción del contexto y situación del sistema de información en el que se va a desarrollar el proyecto, destacando las aportaciones originales.
+El proyecto se realizará en la Delegación de Medio Ambiente y Ordenación del Territorio de Cádiz así como en algunas de sus sedes repartidas a lo largo de la provincia. Todo surge de la imperiosa necesidad de sincronizar las diversas Unidades Biogeográficas en las que se gestiona una ingente cantidad de datos (mayormente Cartografía aunque también podemos encontrar datos de los usuarios, perfíles móviles, documentación oficial para trámites medioambientales así como un largo listado de documentos internos de la Junta de Andalucia).
+
+ El elemento más utilizado son los mapas cartográficos necesarios en el devenir diario de las Unidades Biogeográficas, pueden ser de diferentes escalas el problema es que cuanto más detallados sean más pesados lo que conlleva una mayor dificultad a la hora de transmitir esa información junto con el coste de procesamiento en el servidor.
+
+ Dos grandes dificultades provocan que la tarea de sincronizar la información entre unidades sea titánica, la primera que los servidores estas sobresaturados de carga de trabajo casi rozando el límite y la segunda que en algunas unidades en el mejor de los casos el medio para transmitir información es un radioenlace LMDS a 4 Mbps, es fácil imaginar la grán dificultad de sincronizar información con los radioenlaces tan vulnerables a los medios atmosféricos.
+
+Con el fin de poder solventar todos los problemas se pretende realizar una nube privada de tráfico cerrado, gracias al software disponible en las NAS esto puede realizarse sin aumentar el coste del proyecto y de forma nativa entre los dispositivos ya que Synology lo creo con dicho fin siendo posible definir una sincronización síncrona o asíncrona.
+
+Se pretende cifrar el tráfico de sincronización de la nube por motivos de seguridad, aunque en aquellas Unidades Biogeográficas con radioenlace LMDS a 4Mbps tal vez se eliga un cifrado más liviano o pudiese darse el caso de que no interese cifrar el tráfico sino el contenido aunque todo es revisable y planteable ya sea bien por normas internas de la Junta de Andalucia o bien por criterios del equipo de informática.
+
+Como aclaración se debe añadir el hecho de que los datos son pertenecientes a diferentes sistemas operativos desde Windows xp hasta Windows 7 en puestos de trabajo y desde Windows 2000 server hasta Windows 2008 server.
+
+Nos encontramos por tanto en un entorno de grán variedad con usuarios que trabajan en el mismo puesto, otros móviles, diferentes servidores con sus diferencias hardware y una múltiple amalgama de versiones de windows ejecutadas en equipos dispares tanto en hardware como en versión de sistema operativo. Conseguir que todos los usuarios dispongan de los datos que necesitan así como la sincronización de los mismos no es tarea fácil en un entorno tan variado.
+
+Como conclusión nos encontramos ante una necesidad crítica de sincronización en un entorno que no facilita en absoluto realizar dicha labor de forma sencilla.
+
+ 1.2  DESCRIPCIÓN DEL ENTORNO Y EL SISTEMA ACTUAL.
+
+
+
+ 1.3  OBJETIVOS.
+
+Qué queremos conseguir con el sistema a implementar. 
+
+Con el sistema a implementar  queremos conseguir poder solucionar los problemas derivados de la dificultad de sincronizar todas las Unidades Biogeográficas así como los efectos colaterales que derivan de llevar a cabo la tarea.
+
+Mantener toda la sincronización requiere de diversos factores entre los cuales encontramos:
+
+El inmenso espacio que ocupan en los discos duros de los servidores mantener todos los datos a sincronizar. El sistema operativo con todas sus configuraciones además de los servicios que presta ya abarca un gran tamaño en la ocupación del disco si a eso le añadimos todos los datos utilizados en el día a día más los perfiles de usuarios no es algo que ayude mucho en un entorno donde los discos duros están cerca de lleno absoluto. Conseguir volcar toda esa información en las NAS supondría una liberación considerable del espacio disponible en los discos de los servidores más necesarios para otros menesteres como montar nuevos servicios.
+La carga de trabajo de los servidores. Los servidores se encuentran bastante limitados llegando a rozar incluso el límite de sus capacidades. Mantener la sincronización de los datos sin olvidarnos de su transmisión requieren un coste en procesamiento, esto supone un serio problema en una infraestructura en la que las máquinas ya están rozando el limite de sus capacidades. Los servidores de la infraestructura prestan servicio tanto a los empleados de la junta como a los ciudadanos, tienen una gran carga de trabajo a mantener por lo que cualquier liberación de recursos en procesamiento será una gran ventaja para que los servicios puedan ser prestados con una mejor calidad así como para la implementación de nuevos servicios.
+El coste eléctrico y de mantenimiento de un servidor es elevado en comparación al modelo de NAS utilizado en este caso Synology ds216se, en caso de cualquier avería, reposición o ampliación de la infraestructura tendrá un menor costo en todos los aspectos si se deriva la tarea de sincronización en las NAS.
+La redundancia de los datos por seguridad. De forma verídica se puede confirmar el hecho de que cuantos más medios de mantener la información redundante mejor porque todo tiende a estropearse en algún momento. En alguna ocasión ha ocurrido que los discos de algun servidor se han estropeado teniendo que volver a volcar toda la información desde la sede en Cádiz y recientemente se ha estropeado el robot de copias de seguridad en cintas LTO4 en Cádiz debiendo recurrir a varias NAS y discos duros externos para solucionar la emergencia. Por todo lo anteriormente mencionado se considera necesario a la par que positivo la adhesión de la infraestructuras de NAS para tener un medio mas de redundancia para la seguridad de no perder ningún dato. 
+
+El objetivo es que con la infraestructura de NAS pueda ponerse fin a los problemas ya mencionados. Con las NAS encargándose de la sincronización se libre espacio en los discos de los servidores, carga de trabajo en sus procesadores, se mantiene la seguridad de la transmisión de los datos ya que se cifrarían las comunicaciones y todo ello desde una Nube privada sobre la que se tiene pleno control tanto en administración como en la seguridad de que los datos no pasen por manos ajenas a la Junta de Andalucia.
+
+Tenemos por añadidura la gran ventaja de que escalar el sistema NAS añadiendo más unidades al mismo es factible tanto en complejidad como en precio. En la Junta de Andalucia los presupuestos son ajustados, siendo el destinado al departamento de informática realmente escaso para las necesidades reales así que cuanto más barato sea el artículo que se desea conseguir (en este caso futuras NAS para más Unidades Biogeográficas) más posibilidades de que se apruebe el presupuesto de compra gracias a lo cual se consigue escalabilidad ahorrando dinero que podrá ser empleado en cubrir otras de las muchas necesidades del departamento de informática.
+
+ 1.4  FUNCIONES Y REQUISITOS.
+
+Qué servicios ofrecerá el sistema una vez implementado.
+
+Las funciones del proyecto son:
+Proporcionar un Cloud privado que permita tanto la sincronización asíncrona o síncrona de todos los directorios incluidos en el mismo eligiendo que directorios sincronizar y como será la sincronización de los mismos.
+Cifrar el trafico de los datos para aumentar la seguridad de la nube.
+Al delegarse la carga de procesamiento de la sincronización en las NAS los servidores quedarán liberados de esta disminuyendo la saturación en carga de trabajo de los mismos.
+Disponer de un elemento más de seguridad en la redundancia de los datos. Nunca se sabe cuando se va a estropear cualquier elemento en el que redunden los datos así que cuantos más métodos de seguridad para evitar la pérdida de estos mucho mejor.
+Crear una infraestructura fácilmente escalable al menos coste posible.
+Permitir integrar todos los usuarios ya existentes o por existir mediante el uso de Active Directory que es soportado por las NAS, evitando con ello la tediosa tarea de tener que crear los usuarios uno por uno.
+Automatizar los procesos de sincronización, ya que una vez definidas las reglas el administrador no tendrá volver a preocuparse.
+Aviso mediante correo electrónico y SMS de cualquier incidencia, así cualquier problema crítico sería conocido lo antes posible para solucionarlo con la mayor prontitud.
+
+Los requisitos del proyecto son:
+La inversión económica en las NAS junto con los discos que se han de montar en ellas ya que no viene incluidos en las mismas.
+Configuración del software de Cloud Privado (Cloud Sync) definiendo las reglas de sincronización.
+Diseñar un plan de pruebas más un conjunto de datos de prueba que garanticen la comprobación del correcto funcionamiento de todo el sistema.
+
+ 1.5  PLANTEAMIENTO Y EVALUACIÓN DE DIVERSAS SOLUCIONES.
+
+La implementación de DFS (Distributed Fail System) fue la una de las  alternativas que el equipo de informáticos de la delegación de medio ambiente en Cádiz se planteo como solución al problema, la segunda alternativa fue la utilización de un de una infraestructura compuesta por varias NAS con la que crear un cloud privado.
+
+Distributed Fail System es una nueva funcionalidad implementada en las ediciones server de Windows desde la versión 2008 consistente en poder sincronizar las carpetas de todos los servidores del mismo dominio. En principio parecía una opción viable pero existían dos inconvenientes los cuales revocaron automáticamente la elección de esta elección, el primero fue ciertas limitaciones de sincronización que no permitían una configuración demasiado rigurosa a gusto del Administrador Jefe del equipo de informáticos de Cádiz por lo tanto termino deseandose porque no aportaba toda la funcionalidad deseada y requerida.
+
+Como segunda opción se contempló la posibilidad de adquirir un conjunto de NAS que permitiesen crear un Cloud Privado con tráfico cifrado pudiendo ser efectiva de funcional en cualquier plataforma. El coste no era demasiado elevado, así que se indago en las funcionalidades que ofrecían las mejores NAS disponibles en el mercado siendo elegido el modelo la NAS  ds216se de Synology la cual cubria todas las necesidades a la vez que proporciona las funcinalidades requeridas al menor coste posible ya que el departamento de informatica cuenta con un presuesto ajustado a la par que reducido.
+
+ 1.6  JUSTIFICACIÓN DE LA SOLUCIÓN ELEGIDA.
+
+
+
+ 1.7  MODELADO DE LA SOLUCIÓN.
+
+
+
+ 1.7.1  RECURSOS HUMANOS.
+
+
+ 1.7.2  RECURSOS HARDWARE.	
+
+
+ 1.7.3  RECURSOS SOFTWARE.
+
+
+
+
+ 1.8  PLANIFICACIÓN TEMPORAL.
+
+
+
+
+
+ 2  EJECUCIÓN DEL PROYECTO.
+
+Elaboración de la documentación técnica (por ejemplo, código fuente, ficheros de configuración, características técnicas, etc.-)  
+
+
+ 3  FASE DE PRUEBAS.
+
+Creación de una batería de pruebas (tanto para descubrir errores lógicos como posibles mejoras en la ejecución) que corroboren de forma razonable el buen funcionamiento del sistema.
+
+ 4  DOCUMENTACIÓN DEL SISTEMA.
+
+
+ 4.1  INTRODUCCIÓN A LA APLICACIÓN.
+
+
+ 4.2  MANUAL DE INSTALACIÓN.
+
+
+ 4.3  MANUAL DE ADMINISTRACIÓN.
+
+Dirigido al encargado de mantener todo el sistema.
+
+ 4.4  MANUAL DE USUARIO.
+
+Dirigido a los encargados de utilizar el sistema (pueden estar clasificados en diferentes roles).
+
+
+
+ 5  CONCLUSIONES FINALES.
+
+Grado de cumplimiento de los objetivos fijados.
+Propuesta de modificaciones o ampliaciones futuras del sistema implementado.
+
+ 6  BIBLIOGRAFÍA.
+
+Libros, proyectos, manuales y bibliografía web utilizados.
+
+https://www.synology.com/es-es/products/DS216se
+
+http://www.wdc.com/sp/products/products.aspx?id=810#Tab3
+
+https://technet.microsoft.com/es-es/library/jj127250.aspx
