@@ -1,0 +1,321 @@
+
+
+
+
+
+
+
+
+CICLO FORMATIVO DE GRADO SUPERIOR
+
+ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS EN RED
+
+IES Fernando Aguilar Quignon
+
+Curso 2015/2016
+
+
+
+
+
+
+MEMORIA DEL PROYECTO.
+
+“CREACIÓN DE NUBE CORPORATIVA MULTIPLATAFORMA
+EN ENTORNO DISTRIBUIDO CON DATOS CIFRADOS.”
+
+ 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Índice de contenido
+ 1 ESTUDIO DEL PROBLEMA Y ANÁLISIS DEL SISTEMA.	3
+ 1.1 INTRODUCCIÓN.	3
+ 1.2 DESCRIPCIÓN DEL ENTORNO Y EL SISTEMA ACTUAL.	4
+ 1.3 OBJETIVOS.	4
+ 1.4 FUNCIONES Y REQUISITOS.	5
+ 1.5 PLANTEAMIENTO Y EVALUACIÓN DE DIVERSAS SOLUCIONES.	6
+ 1.6 JUSTIFICACIÓN DE LA SOLUCIÓN ELEGIDA.	7
+ 1.7 MODELADO DE LA SOLUCIÓN.	7
+ 1.7.1 RECURSOS HUMANOS.	7
+ 1.7.2 RECURSOS HARDWARE.		8
+ 1.7.3 RECURSOS SOFTWARE.	8
+ 1.8 PLANIFICACIÓN TEMPORAL.	8
+ 2 EJECUCIÓN DEL PROYECTO.	9
+ 3 FASE DE PRUEBAS.	10
+ 4 DOCUMENTACIÓN DEL SISTEMA.	12
+ 4.1 INTRODUCCIÓN A LA APLICACIÓN.	12
+ 4.2 MANUAL DE INSTALACIÓN.	12
+ 4.3 MANUAL DE ADMINISTRACIÓN.	12
+ 4.4 MANUAL DE USUARIO.	12
+ 4.5 PROBLEMAS SURGIDOS A LO LARGO DEL PROYECTO.	13
+ 5 CONCLUSIONES FINALES.	13
+ 6 BIBLIOGRAFÍA.	13
+
+
+
+ 1  ESTUDIO DEL PROBLEMA Y ANÁLISIS DEL SISTEMA.
+
+
+
+ 1.1  INTRODUCCIÓN.
+
+Descripción del contexto y situación del sistema de información en el que se va a desarrollar el proyecto, destacando las aportaciones originales.
+El proyecto se realizará en la Delegación de Medio Ambiente y Ordenación del Territorio de Cádiz así como en algunas de sus sedes repartidas a lo largo de la provincia. Todo surge de la imperiosa necesidad de sincronizar las diversas Unidades Biogeográficas en las que se gestiona una ingente cantidad de datos (mayormente Cartografía aunque también podemos encontrar datos de los usuarios, perfíles móviles, documentación oficial para trámites medioambientales así como un largo listado de documentos internos de la Junta de Andalucia).
+
+ El elemento más utilizado son los mapas cartográficos necesarios en el devenir diario de las Unidades Biogeográficas, pueden ser de diferentes escalas el problema es que cuanto más detallados sean más pesados lo que conlleva una mayor dificultad a la hora de transmitir esa información junto con el coste de procesamiento en el servidor.
+
+ Dos grandes dificultades provocan que la tarea de sincronizar la información entre unidades sea titánica, la primera que los servidores estas sobresaturados de carga de trabajo casi rozando el límite y la segunda que en algunas unidades en el mejor de los casos el medio para transmitir información es un radioenlace LMDS a 4 Mbps, es fácil imaginar la grán dificultad de sincronizar información con los radioenlaces tan vulnerables a los medios atmosféricos.
+
+Con el fin de poder solventar todos los problemas se pretende realizar una nube privada de tráfico cerrado, gracias al software disponible en las NAS esto puede realizarse sin aumentar el coste del proyecto y de forma nativa entre los dispositivos ya que Synology lo creo con dicho fin siendo posible definir una sincronización síncrona o asíncrona.
+
+Se pretende cifrar el tráfico de sincronización de la nube por motivos de seguridad, aunque en aquellas Unidades Biogeográficas con radioenlace LMDS a 4Mbps tal vez se eliga un cifrado más liviano o pudiese darse el caso de que no interese cifrar el tráfico sino el contenido aunque todo es revisable y planteable ya sea bien por normas internas de la Junta de Andalucia o bien por criterios del equipo de informática.
+
+Como aclaración se debe añadir el hecho de que los datos son pertenecientes a diferentes sistemas operativos desde Windows xp hasta Windows 7 en puestos de trabajo y desde Windows 2000 server hasta Windows 2008 server.
+
+Nos encontramos por tanto en un entorno de grán variedad con usuarios que trabajan en el mismo puesto, otros móviles, diferentes servidores con sus diferencias hardware y una múltiple amalgama de versiones de windows ejecutadas en equipos dispares tanto en hardware como en versión de sistema operativo. Conseguir que todos los usuarios dispongan de los datos que necesitan así como la sincronización de los mismos no es tarea fácil en un entorno tan variado.
+
+Como conclusión nos encontramos ante una necesidad crítica de sincronización en un entorno que no facilita en absoluto realizar dicha labor de forma sencilla.
+
+ 1.2  DESCRIPCIÓN DEL ENTORNO Y EL SISTEMA ACTUAL.
+
+
+
+ 1.3  OBJETIVOS.
+
+Qué queremos conseguir con el sistema a implementar. 
+
+Con el sistema a implementar  queremos conseguir poder solucionar los problemas derivados de la dificultad de sincronizar todas las Unidades Biogeográficas así como los efectos colaterales que derivan de llevar a cabo la tarea.
+
+Mantener toda la sincronización requiere de diversos factores entre los cuales encontramos:
+
+El inmenso espacio que ocupan en los discos duros de los servidores mantener todos los datos a sincronizar. El sistema operativo con todas sus configuraciones además de los servicios que presta ya abarca un gran tamaño en la ocupación del disco si a eso le añadimos todos los datos utilizados en el día a día más los perfiles de usuarios no es algo que ayude mucho en un entorno donde los discos duros están cerca de lleno absoluto. Conseguir volcar toda esa información en las NAS supondría una liberación considerable del espacio disponible en los discos de los servidores más necesarios para otros menesteres como montar nuevos servicios.
+La carga de trabajo de los servidores. Los servidores se encuentran bastante limitados llegando a rozar incluso el límite de sus capacidades. Mantener la sincronización de los datos sin olvidarnos de su transmisión requieren un coste en procesamiento, esto supone un serio problema en una infraestructura en la que las máquinas ya están rozando el limite de sus capacidades. Los servidores de la infraestructura prestan servicio tanto a los empleados de la junta como a los ciudadanos, tienen una gran carga de trabajo a mantener por lo que cualquier liberación de recursos en procesamiento será una gran ventaja para que los servicios puedan ser prestados con una mejor calidad así como para la implementación de nuevos servicios.
+El coste eléctrico y de mantenimiento de un servidor es elevado en comparación al modelo de NAS utilizado en este caso Synology ds216se, en caso de cualquier avería, reposición o ampliación de la infraestructura tendrá un menor costo en todos los aspectos si se deriva la tarea de sincronización en las NAS.
+La redundancia de los datos por seguridad. De forma verídica se puede confirmar el hecho de que cuantos más medios de mantener la información redundante mejor porque todo tiende a estropearse en algún momento. En alguna ocasión ha ocurrido que los discos de algun servidor se han estropeado teniendo que volver a volcar toda la información desde la sede en Cádiz y recientemente se ha estropeado el robot de copias de seguridad en cintas LTO4 en Cádiz debiendo recurrir a varias NAS y discos duros externos para solucionar la emergencia. Por todo lo anteriormente mencionado se considera necesario a la par que positivo la adhesión de la infraestructuras de NAS para tener un medio mas de redundancia para la seguridad de no perder ningún dato. 
+
+El objetivo es que con la infraestructura de NAS pueda ponerse fin a los problemas ya mencionados. Con las NAS encargándose de la sincronización se libre espacio en los discos de los servidores, carga de trabajo en sus procesadores, se mantiene la seguridad de la transmisión de los datos ya que se cifrarían las comunicaciones y todo ello desde una Nube privada sobre la que se tiene pleno control tanto en administración como en la seguridad de que los datos no pasen por manos ajenas a la Junta de Andalucia.
+
+Tenemos por añadidura la gran ventaja de que escalar el sistema NAS añadiendo más unidades al mismo es factible tanto en complejidad como en precio. En la Junta de Andalucia los presupuestos son ajustados, siendo el destinado al departamento de informática realmente escaso para las necesidades reales así que cuanto más barato sea el artículo que se desea conseguir (en este caso futuras NAS para más Unidades Biogeográficas) más posibilidades de que se apruebe el presupuesto de compra gracias a lo cual se consigue escalabilidad ahorrando dinero que podrá ser empleado en cubrir otras de las muchas necesidades del departamento de informática.
+
+ 1.4  FUNCIONES Y REQUISITOS.
+
+Qué servicios ofrecerá el sistema una vez implementado.
+
+Las funciones del proyecto son:
+Proporcionar un Cloud privado que permita tanto la sincronización asíncrona o síncrona de todos los directorios incluidos en el mismo eligiendo que directorios sincronizar y como será la sincronización de los mismos.
+Cifrar el trafico de los datos para aumentar la seguridad de la nube.
+Al delegarse la carga de procesamiento de la sincronización en las NAS los servidores quedarán liberados de esta disminuyendo la saturación en carga de trabajo de los mismos.
+Disponer de un elemento más de seguridad en la redundancia de los datos. Nunca se sabe cuando se va a estropear cualquier elemento en el que redunden los datos así que cuantos más métodos de seguridad para evitar la pérdida de estos mucho mejor.
+Crear una infraestructura fácilmente escalable al menos coste posible.
+Permitir integrar todos los usuarios ya existentes o por existir mediante el uso de Active Directory que es soportado por las NAS, evitando con ello la tediosa tarea de tener que crear los usuarios uno por uno.
+Automatizar los procesos de sincronización, ya que una vez definidas las reglas el administrador no tendrá volver a preocuparse.
+Aviso mediante correo electrónico y SMS de cualquier incidencia, así cualquier problema crítico sería conocido lo antes posible para solucionarlo con la mayor prontitud.
+
+Los requisitos del proyecto son:
+La inversión económica en las NAS junto con los discos que se han de montar en ellas ya que no viene incluidos en las mismas.
+Configuración del software de Cloud Privado (Cloud Sync) definiendo las reglas de sincronización.
+Diseñar un plan de pruebas más un conjunto de datos de prueba que garanticen la comprobación del correcto funcionamiento de todo el sistema.
+
+ 1.5  PLANTEAMIENTO Y EVALUACIÓN DE DIVERSAS SOLUCIONES.
+
+La implementación de DFS (Distributed Fail System) fue la una de las  alternativas que el equipo de informáticos de la delegación de medio ambiente en Cádiz se planteo como solución al problema, la segunda alternativa fue la utilización de un de una infraestructura compuesta por varias NAS con la que crear un cloud privado.
+
+Distributed Fail System es una nueva funcionalidad implementada en las ediciones server de Windows desde la versión 2008 consistente en poder sincronizar las carpetas de todos los servidores del mismo dominio. En principio parecía una opción viable pero existían dos inconvenientes los cuales revocaron automáticamente la elección de esta elección, el primero fue ciertas limitaciones de sincronización que no permitían una configuración demasiado rigurosa a gusto del Administrador Jefe del equipo de informáticos de Cádiz por lo tanto termino deseandose porque no aportaba toda la funcionalidad deseada y requerida.
+
+Como segunda opción se contempló la posibilidad de adquirir un conjunto de NAS que permitiesen crear un Cloud Privado con tráfico cifrado pudiendo ser efectiva de funcional en cualquier plataforma. El coste no era demasiado elevado, así que se indago en las funcionalidades que ofrecían las mejores NAS disponibles en el mercado siendo elegido el modelo la NAS  ds216se de Synology la cual cubria todas las necesidades a la vez que proporciona las funcionalidades requeridas al menor coste posible ya que el departamento de informática cuenta con un presupuesto ajustado a la par que reducido.
+
+ 1.6  JUSTIFICACIÓN DE LA SOLUCIÓN ELEGIDA.
+
+Al final se termino eligiendo la opción de crear un cloud privado de varias NAS Synology modelo  ds216se por ser la mínima expresión que satisfacía todas las necesidades técnicas requeridas al menor coste.
+Diversos motivos fueron los que justificaron esta solución entre los que se encuentran:
+Se necesitaba una forma de sincronización que pudiese estar bajo el control absoluto del departamento de informática de la delegación de Medio Ambiente en Cádiz, esto podía conseguirse con un cloud privado a disposición de las diversas Unidades Biogeográficas.
+Al tener un presupuesto ajustado no muy generoso la solución debía ser asequible, la adquisición de las NAS se ajustaba perfectamente al presupuesto disponible para solventar el problema.
+Los datos tenían que transmitirse de forma segura entre las sedes esto puede realizarse con la solución elegida porque permite cifrar el trafico que transmite cumpliendo con los requisitos de seguridad en transmisiones exigidos por la Junta de Andalucia.
+El proceso de sincronización debe ser automático, el software que proporciona Synology permite realizar esta labor de forma eficaz permitiendo realizarla de forma síncrona o asíncrona y sobre que directorios.
+El sistema debía ser escalable de forma sencilla y económica, el modelo elegido de NAS cumple a la perfección este propósito hasta tal punto que se encargado una nueva NAS más y se preeve la compra de nuevas NAS hasta tener al menos una en cada Unidad Biogeográfica.
+
+Le hecho de que la solución elegida supliese todas las necesidades expresadas en los puntos anteriores fue el principal punto de inflexión que declino la elección de esta medida.
+
+ 1.7  MODELADO DE LA SOLUCIÓN.
+
+La solución se fue modelando gracias a la colaboración de las partes implicadas en el proyecto, empezando por el departamento de Informática de la delegación de Medio Ambiente en Cádiz el cual lo propuso, el departamento de recursos humanos encargado de aceptar o denegar presupuestos y el jefe de la sede el cual apoyo la implantación del proyecto aprobando las medidas necesarias.
+
+ 1.7.1  RECURSOS HUMANOS.
+
+Los recursos humanos que han conseguido llevar a cabo el proyecto son el  Departamento de Informática de la delegación de Medio Ambiente en Cádiz con el cual se colabora estrechamente en todo el esfuerzo por hacer funcionar la infraestructura del proyecto.
+
+
+
+ 1.7.2  RECURSOS HARDWARE.	
+
+Los recursos hardware son seis NAS Synology modelo  ds216se además de dieciocho discos duros especiales para NAS de Western Digital(dos por NAS).
+
+Los detalles técnicos del hardware podrán encontrarse en los encales pertinentes adjuntados al final del documento aunque comentaremos los más significativos de forma rápida a continuación:
+
+Nas Synology modelo ds216se:
+CPU Marvel Armada 370 88F6707 a 800MHz.
+265 MB RAM DDR3
+Capacidad de almacenamiento para dos discos duros SATAII o SATAIII de 2,5'' o 3,5'' cuya capacidad máxima en conjunto no podrá superar los 16TB ya que es el máximo que permite la NAS.
+Dos puertos usb 2.0.
+Un conector RJ45 de hasta 1GB/s.
+
+Discos duros Western Digital modelo WD40EFRX:
+Capacidad de 4TB.
+Interfaz SATA de 6GB/s.
+Caché de 64MB.
+Discos 24/7, especialmente testeados en NAS que funcionen 24 horas al día durante los 7 días de la semana.
+
+ 1.7.3  RECURSOS SOFTWARE.
+
+El principal recurso software es el sistema operativo denominado DSM que ofrece Synology para instalar en sus NAS pero en segundo lugar aunque no menos importante Synology ofrece una gran cantidad de paquetes compatibles con  su sistema operativo para ampliar la funcionalidad de sus dispositivos.
+Toda la información respecto a todo el software se encuentra en la sección de Bibliografía de este documento para su consulta.
+
+
+
+
+
+ 1.8  PLANIFICACIÓN TEMPORAL.
+
+
+La planificación temporal seguirá el siguiente secuencia:
+
+1. El mes de enero se utilizará para montar todas las NAS, los discos dentro de las mismas, ponerlas en funcionamiento, comprobar que no tienen ningún defecto y empezar los preparativos para poder configurar el cloud con la ayuda de la documentación de Synology. Con la instalación de los discos se procederá a realizar la carga inicial de datos para que no se saturen las líneas al comienzo de la instalación en cada sede.
+
+2. El mes de febrero se creará el cloud, se crearán y configuraran los directorios, se cifrará el tráfico  y finalmente se utilizará un conjunto de datos de prueba. Si todo se funciona correctamente, en los plazos previstos, se pondrá en producción. Una vez puesto en marcha el cloud se solucionarán las posibles incidencias que puedan surgir para asegurar el correcto funcionamiento.
+
+3. En marzo estaría previsto la finalización del proyecto, según los plazos previstos para poder exponer.
+
+
+ 2  EJECUCIÓN DEL PROYECTO.
+
+Elaboración de la documentación técnica (por ejemplo, código fuente, ficheros de configuración, características técnicas, etc.-)
+
+Como documentación del proyecto se incluirá un manual de instalación. No se incluirá una guía para el usuario porque todo será de forma transparente al mismo, para el usuario la implementación de este sistema no supondrá ningún efecto, simplemente accederá a sus carpetas como siempre sin notar diferencia alguna.
+
+El manual de instalación se encontrará en punto 4.2 de este mismo documento explicando detalladamente toda el proceso.
+
+Respecto a Documentación técnica en este caso no ha de crearse ninguna ni redactarse ya que Synology la pone a nuestra disposición en su página web siendo imposible una fuente mejor y más fiable.
+
+
+
+
+Tanto la configuración como la administración de las NAS se realiza via web porque Synology así nos lo indica en sus manuales por lo tanto no habrá ficheros de configuración adjuntos , en su lugar si se añadirán imágenes que ilustren todo el proceso de configuración necesario.
+
+
+ 3  FASE DE PRUEBAS.
+
+Creación de una batería de pruebas (tanto para descubrir errores lógicos como posibles mejoras en la ejecución) que corroboren de forma razonable el buen funcionamiento del sistema.
+
+La infraestructura de NAS que se va a montar o el sistema como se desee denominar consistirá en una NAS que actuara como servidor en la sede de Cádiz y todas las demás en las Unidades Biogeográficas correspondientes las cuales serán clientes de la primera siendo esta última el origen de la sincronización.
+
+Se han planeado una serie de pruebas que indicaremos a continuación junto con las medidas a tomar para su realización asegurando el correcto funcionamiento de todo el sistema implementado junto con las soluciones planteadas:
+
+1. Comprobar que todas las NAS se integran perfectamente con Active Directory, siendo necesario para ella integrar las y comprobar que cualquier usuario puede validarse contra las mismas.
+Cuando la NAS se integre con Active Directory se realizara la validación utilizando diversos tipos de usuarios de diferentes delegaciones, para comprobar que cualquier usuario sea cual sea su perfil, permisos o ubicación podrá autenticarse. Recordemos que para el usuario todo esto será transparente simplemente accederá a su carpeta de red e introducirá su contraseña pero sin él saberlo la autenticación la realizará contra su respectiva NAS.
+
+
+
+
+
+
+
+
+
+
+2. Cerciorarse del correcto funcionamiento de las ACL de Windows, es estrictamente necesario que los usuarios solo puedan acceder a aquellos directorios o datos para los que tengan permiso.
+Se copiaran diferentes directorios con permisos de distinta índole para poder comprobar que los usuarios solo puedan acceder a  los directorios o datos para los que tengan permisos.
+En caso de comprobar que la NAS no fuera capaz de establecer correctamente las ACL necesitadas, se dejaría el control de las ACL al controlador de dominio pertiente. En ocasiones es bien sabido que las NAS no son capaces de implementar todos los permisos necesarios o que tal vez no se ajustan del todo bien al funcionamiento del controlador de dominio de la red, por eso mismo si se diese el caso se delegaría la funcion en el controlardor.
+
+3. Para comprobar la correcta sincronización entre la NAS servidor y las NAS clientes, mediante el uso del software de Synology Sync Cloud y Sycn Cloud Client. 
+Primero se llevará a cabo dentro de la misma red todas en la delegación de Medio Ambiente en Cádiz con un conjunto de datos de prueba de varios TB. Se comprobará tanto que la sincronización sea correcta, como la integridad de los datos y que se cumpla la sincronización de los directorios especificados únicamente.
+Segundo se tendrán que llevar físicamente las NAS a cada delegación correspondiente y mandarle un conjunto de datos de prueba para comprobar que la sincronización con Cádiz se efectura correctamente dentro de los parámetros fijados.
+
+4. Durante una semana se seguirá comprobado que la sincronización remota se ejecute con éxito en las NAS clientes a pesar del flujo de datos variables. No todos los días se produce el mismo flujo de datos entre las Unidades Biogeográficas y la Delegación de Medio Ambiente de Cádiz, por esta cuestión se vigilará que durante una semana sea cual sea el flujo de datos la sincronización se produzca de forma efectiva.
+
+
+
+
+
+
+
+
+
+
+
+
+ 4  DOCUMENTACIÓN DEL SISTEMA.
+
+En este proyecto dejaremos documentada la instalación y configuración del sistema. No se creará documentación técnica por estar disponible en la propia página web de Synology, ninguna fuente es mejor y más fiable que el propio fabricante. Manual de utilización para los usuarios no será necesario, el sistema será totalmente transparente, el usuario se benificiará del mismo pero ni si quiera tendrá conocimiento de su existencia.
+En el apartado 4.2 presentaremos el manual de instalación, el cual reflejara los pasos necesarios para instalar el sistema hasta que pueda funcionar.
+Por otro lado en el apartado 4.3 mostraremos como administrar y configurar el sistema siendo esta la parte más larga y compleja.
+
+ 4.1  INTRODUCCIÓN A LA APLICACIÓN.
+
+La introducción de este sistema de varias NAS que conformarán un cloud privado en el cual el tráfico será cifrado aportará grandes beneficios a todas las Unidades Biogeográficas pertenecientes a Medio Ambiente de la Junta de Andalucia a un coste reducido.
+De forma transparente al usuario se conseguirá que este acceda a su información pero la obtendrá de un sistema autónomo formado por varias NAS cada una con su propio SAI. Esta será una nueva infraestuctura independiente ya de por si que formará parte de la macro lan en la que se encuentran todas las unidades y aliviara a los servidores de una nada desdeñable carga de trabajo junto con la liberación de mucho espacios en sus Discos ya que el volumen de información que fluye es del orden de TB, así que es crucial que toda la información este disponible cuando sea necesario.
+Con el fin de suplir todas las necesidades ya mencionadas anteriormente a lo largo del documento, se procederá a instalar y poner en funcionamiento lo antes posible esta infraestructura.
+
+ 4.2  MANUAL DE INSTALACIÓN.
+
+
+ 4.3  MANUAL DE ADMINISTRACIÓN.
+
+Dirigido al encargado de mantener todo el sistema.
+
+ 4.4  MANUAL DE USUARIO.
+
+Dirigido a los encargados de utilizar el sistema (pueden estar clasificados en diferentes roles).
+
+ 4.5  PROBLEMAS SURGIDOS A LO LARGO DEL PROYECTO.
+
+ 5  CONCLUSIONES FINALES.
+
+Grado de cumplimiento de los objetivos fijados.
+Propuesta de modificaciones o ampliaciones futuras del sistema implementado.
+
+ 6  BIBLIOGRAFÍA.
+
+Libros, proyectos, manuales y bibliografía web utilizados.
+
+NAS Modelo DS216e
+https://www.synology.com/es-es/products/DS216se
+
+Discos duros Western Digital
+http://www.wdc.com/sp/products/products.aspx?id=810#Tab3
+
+Explicación de Microsoft sobre DFS
+https://technet.microsoft.com/es-es/library/jj127250.aspx
+
+Especificaciones técnicas sobre NAS DS216se
+https://www.synology.com/es-es/products/DS216se#spec
+
+Expecificaciones Técnicas extendidas sobre los discos duros Western Digital.
+http://www.wdc.com/wdproducts/library/SpecSheet/ESN/2879-800002.pdf
+
+Software de Utilidades que proporciona Synology para sus NAS.
+https://www.synology.com/es-es/support/download/DS216se
+
+Paquetes que ofrece Synology para ampliar la funcionalidad de sus NAS.
+https://www.synology.com/es-es/support/download/DS216se
